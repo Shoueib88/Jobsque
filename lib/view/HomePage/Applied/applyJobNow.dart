@@ -35,7 +35,23 @@ class ApplyJobNow extends StatelessWidget {
       ),
       body: Padding(
           padding: const EdgeInsets.all(15),
-          child: BlocBuilder<HomeCubit, HomeState>(
+          child: BlocConsumer<SavedCubit, SavedState>(
+            listener: (context, state) {
+              if (state is UploadFileState || state is UploadOtherFileState) {
+                // إظهار تنبيه عند نجاح رفع الملف
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(
+                          "File uploaded: ${context.read<SavedCubit>().filename}")),
+                );
+                context.read<SavedCubit>().addFileIntoList();
+              }
+
+              if (state is AddFileIntoList) {
+                print(
+                    "File added to list successfully! ................................");
+              }
+            },
             builder: (context, state) {
               final controller = context.read<HomeCubit>();
               return SingleChildScrollView(
