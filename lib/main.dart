@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                 ..getAllJbos(context)
                 ..getDataOfCompany(context)),
           BlocProvider(create: (context) => ProfileCubit()),
-          BlocProvider(create: (context) => SavedCubit()..addFileIntoList()),
+          BlocProvider(create: (context) => SavedCubit()),
         ],
         child: ScreenUtilInit(
             designSize: const Size(360, 690),
